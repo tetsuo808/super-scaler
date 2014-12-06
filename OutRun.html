@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<head>
+
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=VT323" media="screen" />
+
+<style type="text/css">
+	* {margin:0;padding:0;}
+	.screen {position:absolute;width:600px;height:350px;overflow:hidden;}
+	
+	.hud {
+	position:absolute;
+	top:5px;left:0;bottom:5px;
+	z-index:999999;
+	font-family:courier,monospace;
+	font-size:16px;
+	text-transform:uppercase;
+	font-weight:bold;
+	letter-spacing:-1px;
+	color:#fff;
+	text-shadow:0 0 1px #000, 0 0 1px #000, 0 0 1px #000, 0 0 1px #000, 0 0 1px #000;
+	}
+		.hud span {
+		font-family:"VT323";
+		padding:0 5px 1px 3px;margin:0 10px 0 60px;
+		background:#fff;
+		border-radius:5px;
+		border:1px solid #00c594;
+		text-shadow:none;
+		}
+			.hud span.t {color:#f76300;}
+			.hud span.s {color:#b500a4;}
+			.hud span.l {color:#0094e6;}
+			
+		.hud b.t {color:#f7f700;font-family:"VT323";font-size:36px;text-shadow:1px 1px 0 #000, 1px 1px 0 #000, 1px 1px 0 #000, 1px 1px 0 #000, 1px 1px 0 #000;}
+		.hud b.s {color:#b5c5d6;}
+		.hud b.l {color:#73d6a4;}
+		
+		.hud div {
+		position:absolute;bottom:10px;right:0;
+		padding-right:25px;
+		color:#73d6a4;
+		background:url(http://fointypinger.co.uk/data/demo/outrun/map.png) right 50% no-repeat;
+		text-shadow:1px 1px 0 #000, 1px 1px 0 #000, 1px 1px 0 #000, 1px 1px 0 #000, 1px 1px 0 #000;
+		}
+			.hud div b.t {font-size:20px;}
+		.hud div.speed {
+		right:auto;left:50px;
+		padding-right:0;
+		color:#ffbd5b;
+		text-transform:none;
+		background:none;
+		}
+			.hud div.speed b.t {color:#ff2908;font-size:30px;font-weight:normal;}
+			.hud div.speed i {
+			position:relative;
+			display:block;
+			width:100px;height:10px;
+			background:#d6e6f7;
+			background:linear-gradient(to bottom, #a4b5c5 0%, #d6e6f7 50%, #a4b5c5 100%);
+			}
+			.hud div.speed i em {
+			display:block;
+			width:50px;height:10px;
+			position:absolute;
+			right:0;
+			background:#d6e6f7;
+			background:linear-gradient(to bottom, #63c594 0%, #a4f7c5 50%, #63c594 100%);
+			border-right:4px solid #c594a4;
+			animation:guage 3s linear infinite;
+			}
+	
+	.sky {
+	position:absolute;
+	top:0;
+	width:600px;height:170px;
+	background:#0094fe;
+	z-index:99999;
+	}
+		.horizon-1a {
+		position:absolute;
+		top:160px;
+		width:600px;height:10px;
+		background:url(http://fointypinger.co.uk/data/demo/outrun/horizon-1a.png);
+		z-index:99999;
+		animation:horizon 3s linear infinite;
+		}
+		.cloud {
+		position:absolute;
+		top:29px;right:0;
+		width:341px;height:141px;
+		background:url(http://fointypinger.co.uk/data/demo/outrun/cloud.png) bottom left;
+		z-index:9999;
+		animation:cloud 6s linear infinite;
+		}
+	
+	.sand {
+	position:absolute;top:100px;
+	width:600px;height:250px;
+	background:#f0ded0;
+	background:linear-gradient(to bottom, #ad9c8c 0%, #cebdad 10%, #f0ded0 20%, #f0ded0 100%);
+	}
+	
+	.road {
+	position:absolute;top:50px;
+	width:0;height:0;
+	border-style:solid;
+	border-width:0 300px 300px;
+	border-color:transparent transparent #9c969c transparent;
+	z-index:99;
+	}
+		.side1, .side2 {
+		position:absolute;
+		top:48px;left:108px;
+		width:0;height:0;
+		z-index:9999;
+		border-style:solid;
+		border-width:0 10px 370px 10px;
+		border-color:transparent transparent #fff transparent;
+		transform:rotate(45deg);
+		}
+		.side2 {left:auto;right:108px;transform:rotate(-45deg);}
+	
+		.line1, .line2, .line3 {
+		opacity:0.3;
+		position:absolute;
+		top:98px;left:50%;
+		width:5px;height:300px;
+		z-index:9999;
+		border-left:5px dashed #fff;
+		}
+			.line2 {left:66%;transform:skew(30deg);}
+			.line3 {left:34%;transform:skew(-30deg);}
+	
+	.palm-1a, .palm-1b, .palm-1c {
+	background:url(http://fointypinger.co.uk/data/demo/outrun/palm-1.png);
+	width:86px;height:216px;
+	position:absolute;
+	top:50px;right:140px;
+	z-index:99999;
+	transform:scale(0.1);
+	animation:palm1 0.8s ease-in infinite;
+	}
+		.palm-1b {animation-delay:0.2s;}
+		.palm-1c {animation-delay:0.4s;}
+	.palm-2a, .palm-2b, .palm-2c {
+	background:url(http://fointypinger.co.uk/data/demo/outrun/palm-2.png);
+	width:86px;height:216px;
+	position:absolute;
+	top:0;left:140px;
+	z-index:99999;
+	transform:scale(0.1);
+	animation:palm2 0.8s ease-in infinite;
+	}
+		.palm-2b {animation-delay:0.4s;}
+		.palm-2c {animation-delay:0.6s;}
+	
+	.scroller, .stripe1, .stripe2, .stripe3, .stripe4 {
+	position:absolute;
+	z-index:999;
+	top:50px;left:0;
+	width:100%;
+	border-top:0 solid rgba(0,0,0,0.05);
+	animation:drive 1s ease-in infinite;
+	}
+		.stripe1 {animation-delay:0.2s;}
+		.stripe2 {animation-delay:0.4s;}
+		.stripe3 {animation-delay:0.6s;}
+		.stripe4 {animation-delay:0.8s;}
+	
+	.car {
+	position:absolute;
+	bottom:30px;left:50%;
+	width:80px;height:41px;
+	z-index:99999;
+	background:url(http://fointypinger.co.uk/data/demo/outrun/ferrari.png);
+	transform:scale(1.5);
+	animation:car 3s linear infinite;
+	}
+		.dust {
+		opacity:0;
+		position:absolute;bottom:20px;left:190px;z-index:99999;
+		background:url(http://fointypinger.co.uk/data/demo/outrun/dust.png);
+		width:38px;height:16px;
+		animation-name:blink;
+		animation-delay:7s;
+		animation-duration:0.1s;
+		animation-timing-function:linear;
+		animation-iteration-count:4;
+		}
+	
+	@keyframes drive {
+		from {top:170px;border-width:10px;}
+		to {top:350px;border-width:35px;}
+	}
+	@keyframes palm1 {
+		from {top:50px;right:120px;transform:scale(0.1);}
+		to {top:100px;right:-40px;transform:scale(1);}
+	}
+	@keyframes palm2 {
+		from {top:50px;left:120px;transform:scale(0.1);}
+		to {top:100px;left:-40px;transform:scale(1);}
+	}
+	@keyframes cloud {
+		0% {right:0;}
+		20% {right:-1%;}
+		40% {right:-2%;}
+		50% {right:-3%;}
+		60% {right:-2%;}
+		80% {right:-1%;}
+		100% {right:0;}
+	}
+	@keyframes horizon {
+		0% {left:0;}
+		20% {left:-1%;}
+		40% {left:-2%;}
+		50% {left:-3%;}
+		60% {left:-2%;}
+		80% {left:-1%;}
+		100% {left:0;}
+	}
+	@keyframes car {
+		0% {left:50%;}
+		20% {left:30%;}
+		40% {left:40%;}
+		50% {left:42%;}
+		60% {left:55%;}
+		80% {left:40%;}
+		100% {left:50%;}
+	}
+	@keyframes guage {
+		0% {width:50px;}
+		20% {width:60px;}
+		40% {width:70px;}
+		50% {width:80px;}
+		60% {width:70px;}
+		80% {width:60px;}
+		100% {width:50px;}
+	}
+	@keyframes blink {
+		0% {opacity:1;}
+		100% {opacity:0;}
+	}
+	</style>
+	<script src="http://cdn.jsdelivr.net/prefixfree/1.0.7/prefixfree.min.js"></script>
+</head>
+
+<body>
+
+	<div class="screen">
+		<div class="hud">
+			<span class="t">Time</span> <b class="t">20</b>
+			<span class="s">Score</span> <b class="s">50221400</b>
+			<span class="l">Lap</span> <b class="l">0'50"25</b>
+			
+			<div><b class="t">Stage</b> 1</div>
+			<div class="speed">
+				<b class="t">192</b> km/h
+				<i><em></em></i>
+			</div>
+		</div>
+		<div class="sky">
+			<div class="horizon-1a"></div>
+			<div class="cloud"></div>
+		</div>
+		<div class="sand"></div>
+		
+		<div class="road"></div>
+		<div class="side1"></div>
+		<div class="side2"></div>
+		
+		<div class="scroller"></div>
+		<div class="stripe1"></div>
+		<div class="stripe2"></div>
+		<div class="stripe3"></div>
+		<div class="stripe4"></div>
+		
+		<div class="line1"></div>
+		<div class="line2"></div>
+		<div class="line3"></div>
+		
+		<div class="palm-1a"></div>
+		<div class="palm-1b"></div>
+		<div class="palm-1c"></div>
+		<div class="palm-2a"></div>
+		<div class="palm-2b"></div>
+		<div class="palm-2c"></div>
+		
+		<div class="car"></div>
+		<div class="dust"></div>
+	</div>
+</body>
